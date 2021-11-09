@@ -1,0 +1,31 @@
+{
+  "name": "Login-and-registration-API",
+  "version": "1.0.0",
+  "description": "API responsible for logging in and registering users",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arthur0311/Login-and-registration-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arthur0311/Login-and-registration-API/issues"
+  },
+  "homepage": "https://github.com/Arthur0311/Login-and-registration-API#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
