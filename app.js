@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const User = require('./models/User')
 const app = express()
 
 app.use(express.json())
@@ -33,7 +34,50 @@ app.post('/auth/register', async(req, res) =>{
         return res.status(422).json({msg: "As senhas não conferem!"})
     }
 
+    // Check if user already exist
 
+    const userExist = await User.findOne({email: email})
+
+    if (userExist) {
+        return res.status(422).json({msg: "Por favor, utilize outro e-mail!"}) 
+    }
+
+    // Create a password using salt. Salt will create a string of random characters making the password stronger
+    const salt = await bcrypt.genSalt(10)
+    const passwordHash = await bcrypt.hash(password, salt)
+
+    // Create a user
+    const user = new User({
+        name,
+        email,
+        password: passwordHash,
+    })
+
+    try {
+        await user.save()
+        res.status(201).json({msg: 'Usuário criado com sucesso!'})
+        
+    } catch (error) {
+
+        console.log(error)
+        res.status(500).json({msg: 'Algo deu errado! Tente mais tarde!'})
+    }
+
+})
+
+// Login User
+
+app.post('/auth/login', async(req, res) => {
+    const {email, password} = req.body
+
+    // Validations
+    if(!email) {
+        return res.status(422).json({msg: "O email é obrigatório!"})
+    }
+
+    if(!password) {
+        return res.status(422).json({msg: "A senha é obrigatória!"})
+    }
 
 })
 
