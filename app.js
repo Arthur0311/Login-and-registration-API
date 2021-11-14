@@ -79,6 +79,13 @@ app.post('/auth/login', async(req, res) => {
         return res.status(422).json({msg: "A senha é obrigatória!"})
     }
 
+    const user = await User.findOne({email: email})
+
+    if (!user) {
+        return res.status(422).json({msg: "Usuário não encontrado!"}) 
+    }
+
+
 })
 
 // Credencials
