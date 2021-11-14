@@ -79,10 +79,35 @@ app.post('/auth/login', async(req, res) => {
         return res.status(422).json({msg: "A senha é obrigatória!"})
     }
 
+    // Check if user exist 
     const user = await User.findOne({email: email})
 
     if (!user) {
         return res.status(422).json({msg: "Usuário não encontrado!"}) 
+    }
+
+    // Check if user password match
+    const checkPassword = await bcrypt.compare(password, user.password)
+
+    if(!checkPassword)  {
+        return res.status(422).json({msg: "Senha inválida!"})  
+    }
+
+    try {
+        const secret = process.env.SECRET
+        const token = jwt.sign(
+            {
+                id: user._id,
+            }, secret
+        )
+
+        res.status(200).json({msg: "Autenticação realizada com sucesso!"})
+        
+    } catch (error) {
+
+        console.log(error)
+        res.status(500).json({msg: 'Algo deu errado! Tente mais tarde!'})
+        
     }
 
 
