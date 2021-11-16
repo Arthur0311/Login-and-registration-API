@@ -1,3 +1,3 @@
 # Login and registration API
  API responsible for logging in and registering users
-![diagram](https://drive.google.com/file/d/1SMd0GZNCxdCJ5ytwxV24KoSeT93oS7i4/view?usp=sharing)
+![diagram](https://github.com/Arthur0311/Login-and-registration-API/blob/main/diagrams/Login_APP.drawio.png)
